@@ -1,11 +1,24 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { HelloModule } from './hello/hello.module';
+import { ConfigModule } from '@nestjs/config';
+import { LoggerMiddleware } from './logger.middleware';
 
 @Module({
-  imports: [UserModule, HelloModule],
+  imports: [
+    UserModule,
+    HelloModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+  ],
   controllers: [AppController],
   providers: [
     {
@@ -33,4 +46,11 @@ import { HelloModule } from './hello/hello.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).exclude('user/(.*)').forRoutes({
+      path: '*',
+      method: RequestMethod.GET,
+    });
+  }
+}
