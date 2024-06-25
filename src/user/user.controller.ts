@@ -9,6 +9,8 @@ import {
   ParseIntPipe,
   UsePipes,
   UseGuards,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -37,6 +39,7 @@ export class UserController {
   @Get()
   findAll() {
     console.log(this.configService.get('DATABASE_URL'));
+    throw new HttpException('完了啊', HttpStatus.BAD_REQUEST);
     return this.userService.findAll();
   }
 

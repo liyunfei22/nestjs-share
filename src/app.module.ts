@@ -10,6 +10,8 @@ import { UserModule } from './user/user.module';
 import { HelloModule } from './hello/hello.module';
 import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './logger.middleware';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { TransformInterceptor } from './transform.interceptor';
 
 @Module({
   imports: [
@@ -43,6 +45,10 @@ import { LoggerMiddleware } from './logger.middleware';
         return 'connection';
       },
       inject: [AppService],
+    },
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformInterceptor,
     },
   ],
 })
