@@ -7,6 +7,7 @@ export class HelloController {
 
   @Get()
   findAll() {
+    console.log('执行handler');
     return this.helloService.findAll();
   }
 

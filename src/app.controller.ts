@@ -11,7 +11,7 @@ export class AppController {
     @Inject('MESSAGE') private readonly message: string,
   ) {}
 
-  @Get('hello')
+  @Get()
   hello(): string {
     return 'hello';
   }
