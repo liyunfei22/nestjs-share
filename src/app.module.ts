@@ -12,7 +12,8 @@ import { ConfigModule } from '@nestjs/config';
 import { LoggerMiddleware } from './logger.middleware';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { TransformInterceptor } from './transform.interceptor';
-
+import { ProductModule } from './product/product.module';
+console.log(2);
 @Module({
   imports: [
     UserModule,
@@ -20,6 +21,7 @@ import { TransformInterceptor } from './transform.interceptor';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ProductModule,
   ],
   controllers: [AppController],
   providers: [
