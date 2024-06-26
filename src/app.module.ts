@@ -58,7 +58,7 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(LoggerMiddleware).exclude('user/(.*)').forRoutes({
       path: '*',
-      method: RequestMethod.GET,
+      method: RequestMethod.ALL,
     });
   }
 }

@@ -7,11 +7,8 @@ export class LoggerMiddleware implements NestMiddleware {
   @Inject(AppService)
   private appService: AppService;
   use(req: Request, res: Response, next: NextFunction) {
-    console.log('Request...');
-    console.log(this.appService.getHello());
-    console.log('-----------');
+    console.log('中间件， Request...');
     next();
-    console.log('-----------');
-    console.log('Response...');
+    console.log('中间件， Response...');
   }
 }
